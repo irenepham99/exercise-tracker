@@ -4,6 +4,7 @@ db.sqlite
 
 #python
 *__pycache__/*
+*.pyc
 
 
 # dependencies
