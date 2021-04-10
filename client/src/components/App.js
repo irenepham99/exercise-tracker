@@ -5,6 +5,7 @@ import Header from "./Header";
 import NewExercise from "./NewExercise";
 import history from "../history";
 import EditExercise from "./EditExercise";
+import ExerciseLog from "./ExerciseLog";
 
 const App = () => {
   return (

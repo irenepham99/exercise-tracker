@@ -30,6 +30,13 @@ export const createExercise = (formValues) => async (dispatch) => {
   history.push("/");
 };
 
+export const logExercise = (formValues, id) => async (dispatch) => {
+  console.log("log exercise");
+  // const response = await exerciseApi.post("/exercise", { ...formValues });
+  // dispatch({ type: CREATE_EXERCISE, payload: response.data });
+  // history.push("/");
+};
+
 export const deleteExercise = (id) => async (dispatch) => {
   console.log("delete exercise called", id);
   await exerciseApi.delete(`/exercise/${id}`);

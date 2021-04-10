@@ -51,9 +51,11 @@ const ExerciseCard = (props) => {
           Edit
         </Button>
         <Button size="small">History</Button>
-        <Button size="small">
+        <Button
+          size="small"
+          onClick={() => history.push(`/exercise/log/${exercise.id}`)}
+        >
           Log Workout
-          <Link exact to="/exercise/log"></Link>
         </Button>
         <Button size="small" onClick={() => deleteExercise(exercise.id)}>
           Delete
