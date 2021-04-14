@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getExercise, updateExercise } from "../actions";
+import { getExercise, updateExercise } from "../../actions";
 import ExerciseForm from "./ExerciseForm";
 import _ from "lodash";
 

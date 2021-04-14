@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getExercises } from "../actions";
+import { getExercises } from "../../actions";
 import ExerciseCard from "./ExerciseCard";
 
 class ExerciseList extends React.Component {

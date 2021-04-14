@@ -7,9 +7,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { compose } from "redux";
-import { deleteExercise } from "../actions";
+import { deleteExercise } from "../../actions";
 import { Link } from "react-router-dom";
-import history from "../history";
+import history from "../../history";
 
 const useStyles = makeStyles({
   root: {
@@ -50,10 +50,15 @@ const ExerciseCard = (props) => {
         >
           Edit
         </Button>
-        <Button size="small">History</Button>
         <Button
           size="small"
-          onClick={() => history.push(`/exercise/log/${exercise.id}`)}
+          onClick={() => history.push(`/exercise/${exercise.id}/chart`)}
+        >
+          History
+        </Button>
+        <Button
+          size="small"
+          onClick={() => history.push(`/exercise/${exercise.id}/log`)}
         >
           Log Workout
         </Button>

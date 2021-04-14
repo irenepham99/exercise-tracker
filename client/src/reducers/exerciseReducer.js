@@ -4,11 +4,16 @@ import {
   CREATE_EXERCISE,
   DELETE_EXERCISE,
   UPDATE_EXERCISE,
+  GET_EXERCISE_LOG,
 } from "../actions";
 import _ from "lodash";
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case GET_EXERCISE_LOG:
+      const exercise = state[action.payload.id];
+      const newExercise = { ...exercise, logs: action.payload.data };
+      return { ...state, [action.payload.id]: newExercise };
     case GET_EXERCISES:
       return { ...state, ..._.mapKeys(action.payload, "id") };
     case GET_EXERCISE:

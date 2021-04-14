@@ -9,9 +9,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Button,
 } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
 import React from "react";
+import history from "../history";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -19,6 +21,7 @@ import compose from "lodash/fp/compose";
 import { withStyles } from "@material-ui/core/styles";
 import ListIcon from "@material-ui/icons/List";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
+import ChooseDialog from "./ChooseDialog";
 
 const theme = createMuiTheme({
   spacing: 4,
@@ -43,8 +46,31 @@ const styles = {
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { openMenu: false };
+    this.state = { openMenu: false, openDialog: false };
   }
+
+  menuItems = [
+    {
+      text: "Exercise",
+      icon: <FitnessCenterIcon style={{ color: "white" }} />,
+      path: "/exercise",
+    },
+    {
+      text: "Routines",
+      icon: <ListIcon style={{ color: "white" }} />,
+      path: "/routine",
+    },
+  ];
+
+  openChooseDialog = () => {
+    console.log("in open choose dialog");
+    this.setState({ openDialog: true });
+  };
+
+  closeChooseDialog = (path) => {
+    this.setState({ openDialog: false });
+    history.push(path);
+  };
 
   openMenu = (event) => {
     this.setState({ openMenu: true });
@@ -75,17 +101,8 @@ class Header extends React.Component {
             classes={{ paperAnchorLeft: classes.drawer }}
           >
             <List style={{ color: "white" }}>
-              {[
-                {
-                  text: "Exercise",
-                  icon: <FitnessCenterIcon style={{ color: "white" }} />,
-                },
-                {
-                  text: "Routines",
-                  icon: <ListIcon style={{ color: "white" }} />,
-                },
-              ].map(({ text, icon }, index) => (
-                <ListItem button key={text}>
+              {this.menuItems.map(({ text, icon, path }, index) => (
+                <ListItem button onClick={() => history.push(path)} key={text}>
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItem>
@@ -95,14 +112,16 @@ class Header extends React.Component {
           <Typography variant="h6" className={classes.title}>
             Workout Logger
           </Typography>
-          <Tooltip title="Add an Exercise">
-            <IconButton color="inherit">
-              <Link exact to="/exercise/new">
-                <AddIcon style={{ color: "white" }} />
-              </Link>
+          <Tooltip title="New exercise / routine">
+            <IconButton onClick={this.openChooseDialog} color="inherit">
+              <AddIcon style={{ color: "white" }} />
             </IconButton>
           </Tooltip>
         </Toolbar>
+        <ChooseDialog
+          open={this.state.openDialog}
+          handleClose={this.closeChooseDialog}
+        />
       </AppBar>
     );
   }

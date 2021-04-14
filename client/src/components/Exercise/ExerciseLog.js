@@ -1,10 +1,10 @@
 import React from "react";
 import compose from "lodash/fp/compose";
 import { Field, reduxForm } from "redux-form";
-import { renderDatePicker, renderTextField } from "../Utils/InputUtils";
+import { renderDatePicker, renderTextField } from "../../Utils/InputUtils";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { connect } from "react-redux";
-import { getExercise, logExercise } from "../actions";
+import { getExercise, logExercise } from "../../actions";
 
 class ExerciseLog extends React.Component {
   componentDidMount() {

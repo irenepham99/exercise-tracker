@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { renderTextField } from "../Utils/InputUtils";
+import { renderTextField } from "../../Utils/InputUtils";
 import compose from "lodash/fp/compose";
-import { createExercise } from "../actions";
+import { createExercise } from "../../actions";
 import { withStyles } from "@material-ui/core/styles";
 import ExerciseForm from "./ExerciseForm";
 

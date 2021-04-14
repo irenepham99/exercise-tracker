@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { renderTextField } from "../Utils/InputUtils";
+import { renderTextField } from "../../Utils/InputUtils";
 import compose from "lodash/fp/compose";
 import { withStyles } from "@material-ui/core/styles";
 
