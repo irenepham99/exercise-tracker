@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getRoutine, updateRoutine } from "../../actions";
+import { getRoutine, updateRoutine } from "../../actions/routineActions";
 import _ from "lodash";
 import RoutineForm from "./RoutineForm";
 
@@ -10,7 +10,6 @@ class RoutineEdit extends React.Component {
   }
 
   onSubmit = (formValues) => {
-    console.log("edit submit");
     this.props.updateRoutine(formValues, this.props.match.params.id);
   };
 

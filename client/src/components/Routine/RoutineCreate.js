@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getRoutine, createRoutine } from "../../actions";
+import { getRoutine, createRoutine } from "../../actions/routineActions";
 import _ from "lodash";
 import RoutineForm from "./RoutineForm";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import { connect } from "react-redux";
-import { openNotification, closeNotification } from "../actions";
+import { closeNotification } from "../actions";
 import MuiAlert from "@material-ui/lab/Alert";
 
 class Notification extends React.Component {

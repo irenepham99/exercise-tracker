@@ -4,7 +4,6 @@ import { renderTextField } from "../../Utils/InputUtils";
 import compose from "lodash/fp/compose";
 import { withStyles } from "@material-ui/core/styles";
 import ExercisePicker from "./ExercisePicker";
-import { connect } from "react-redux";
 
 const styles = {
   button: {

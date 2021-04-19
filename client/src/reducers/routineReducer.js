@@ -4,7 +4,7 @@ import {
   CREATE_ROUTINE,
   DELETE_ROUTINE,
   UPDATE_ROUTINE,
-} from "../actions";
+} from "../actions/routineActions";
 import _ from "lodash";
 
 export default (state = {}, action) => {

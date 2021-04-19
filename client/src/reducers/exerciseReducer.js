@@ -5,7 +5,7 @@ import {
   DELETE_EXERCISE,
   UPDATE_EXERCISE,
   GET_EXERCISE_LOG,
-} from "../actions";
+} from "../actions/exerciseActions";
 import _ from "lodash";
 
 export default (state = {}, action) => {

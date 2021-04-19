@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { renderTextField } from "../../Utils/InputUtils";
 import compose from "lodash/fp/compose";
-import { createExercise } from "../../actions";
+import { createExercise } from "../../actions/exerciseActions";
 import { withStyles } from "@material-ui/core/styles";
 import ExerciseForm from "./ExerciseForm";
 
@@ -22,14 +21,14 @@ const styles = {
   },
 };
 
-class NewExercise extends React.Component {
+class ExerciseCreate extends React.Component {
   onSubmit = (formValues) => {
     this.props.createExercise(formValues);
   };
 
   render() {
     return (
-      <div>
+      <div style={{ padding: "20px" }}>
         <h3>Create a New Exercise</h3>
         <ExerciseForm onSubmit={this.onSubmit}></ExerciseForm>
       </div>
@@ -40,4 +39,4 @@ class NewExercise extends React.Component {
 export default compose(
   withStyles(styles),
   connect(null, { createExercise })
-)(NewExercise);
+)(ExerciseCreate);

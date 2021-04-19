@@ -7,8 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { compose } from "redux";
-import { deleteExercise } from "../../actions";
-import { Link } from "react-router-dom";
+import { deleteExercise } from "../../actions/exerciseActions";
 import history from "../../history";
 
 const useStyles = makeStyles({
@@ -18,6 +17,7 @@ const useStyles = makeStyles({
     borderColor: "black",
     borderWidth: "1px",
     margin: "5px",
+    backgroundColor: "white",
   },
   title: {
     fontSize: 14,
@@ -28,6 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
+//name, cues, compound vs isolation, body group
 const ExerciseCard = (props) => {
   const classes = useStyles();
   const { exercise, deleteExercise } = props;
@@ -38,9 +39,9 @@ const ExerciseCard = (props) => {
           {exercise.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Last Sets: {exercise.sets}
+          Cues: {exercise.cues}
           <br />
-          Last Reps: {exercise.sets}
+          Body Group: {exercise.body_group}
         </Typography>
       </CardContent>
       <CardActions>

@@ -1,4 +1,7 @@
 import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 export const renderTextField = ({
   label,
@@ -23,6 +26,7 @@ export const renderDatePicker = ({
   ...custom
 }) => (
   <TextField
+    style={{ width: "100%" }}
     id="date"
     label={label}
     type="date"
@@ -34,4 +38,25 @@ export const renderDatePicker = ({
     {...input}
     {...custom}
   />
+);
+
+export const renderSelectField = ({
+  input,
+  label,
+  meta: { touched, error },
+  children,
+  ...custom
+}) => (
+  <div>
+    <InputLabel id="select-label">{label}</InputLabel>
+    <Select
+      style={{ width: "100%" }}
+      labelId="select-label"
+      errorText={touched && error}
+      {...input}
+      onChange={(event) => input.onChange(event.target.value)}
+      children={children}
+      {...custom}
+    />
+  </div>
 );

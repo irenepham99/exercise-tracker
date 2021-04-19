@@ -1,10 +1,10 @@
 import React from "react";
 import ExerciseList from "./Exercise/ExerciseList";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import Header from "./Header";
-import NewExercise from "./Exercise/NewExercise";
+import ExerciseCreate from "./Exercise/ExerciseCreate";
 import history from "../history";
-import EditExercise from "./Exercise/EditExercise";
+import ExerciseEdit from "./Exercise/ExerciseEdit";
 import ExerciseLog from "./Exercise/ExerciseLog";
 import ExerciseChart from "./Exercise/ExerciseChart";
 import Notification from "./Notification";
@@ -20,8 +20,8 @@ const App = () => {
           <Header />
           <Route path="/" exact component={ExerciseList} />
           <Route path="/exercise" exact component={ExerciseList} />
-          <Route path="/exercise/new" exact component={NewExercise} />
-          <Route path="/exercise/edit/:id" exact component={EditExercise} />
+          <Route path="/exercise/new" exact component={ExerciseCreate} />
+          <Route path="/exercise/edit/:id" exact component={ExerciseEdit} />
           <Route path="/exercise/:id/log" exact component={ExerciseLog} />
           <Route path="/exercise/:id/chart" exact component={ExerciseChart} />
           <Route path="/routine" exact component={RoutineList} />

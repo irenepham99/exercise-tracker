@@ -9,12 +9,10 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Button,
 } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
 import React from "react";
 import history from "../history";
-import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
 import MenuIcon from "@material-ui/icons/Menu";
 import compose from "lodash/fp/compose";
@@ -63,7 +61,6 @@ class Header extends React.Component {
   ];
 
   openChooseDialog = () => {
-    console.log("in open choose dialog");
     this.setState({ openDialog: true });
   };
 

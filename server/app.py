@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
@@ -19,13 +19,17 @@ ma = Marshmallow(app)
 class Exercise(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    description = db.Column(db.String(400))
+    cues = db.Column(db.String(400))
+    body_group = db.Column(db.String(100))
+    compound = db.Column(db.Boolean)
     logs = db.relationship('Log', backref='exercise',
                            lazy=True, cascade="all, delete")
 
-    def __init__(self, name, description):
+    def __init__(self, name, cues, body_group, compound):
         self.name = name
-        self.description = description
+        self.cues = cues
+        self.body_group = body_group
+        self.compound = compound
 
 
 class Log(db.Model):
@@ -56,15 +60,11 @@ class Routine(db.Model):
         self.description = description
 
 
-# this is being populated
 class ExerciseRoutine(db.Model):
     __tablename__ = 'exerciseRoutine'
     id = db.Column(db.Integer, primary_key=True)
     routine_id = db.Column(db.Integer, db.ForeignKey('routine.id'))
     exercise_id = db.Column(db.Integer, db.ForeignKey('exercise.id'))
-    # routine = relationship(User, backref=backref("routine", cascade="all, delete-orphan"))
-    # exercises = db.relationship(Exercise, backref=db.backref(
-    #     "exercise", cascade="all, delete-orphan"))
 
 
 class ExerciseRoutineSchema(ma.Schema):
@@ -74,7 +74,7 @@ class ExerciseRoutineSchema(ma.Schema):
 
 class ExerciseSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'description')
+        fields = ('id', "name", "cues", "body_group", "compound")
 
 
 class RoutineSchema(ma.SQLAlchemyAutoSchema):
@@ -99,18 +99,15 @@ exercisesRoutines_schema = ExerciseRoutineSchema(many=True)
 exerciseRoutine_schema = ExerciseRoutineSchema()
 
 
-@app.route('/exerciseRoutine', methods=['GET'])
-def get_exerciseRoutines():
-    exercises = ExerciseRoutine.query.all()
-    result = exercisesRoutines_schema.dump(exercises)
-    return jsonify(result)
-
-
 @app.route('/exercise', methods=['GET'])
 def get_exercises():
     exercises = Exercise.query.all()
     result = exercises_schema.dump(exercises)
     return jsonify(result)
+    # this is the format all errors need to be in!!
+    # response = jsonify({"message": "a test message"})
+    # response.status_code = 403
+    # return response
 
 
 @app.route('/exercise/<id>', methods=['GET'])
@@ -124,10 +121,14 @@ def update_exercise(id):
     exercise = Exercise.query.get(id)
 
     name = request.json['name']
-    description = request.json['description']
+    cues = request.json['cues']
+    body_group = request.json['body_group']
+    compound = request.json['compound']
 
     exercise.name = name
-    exercise.description = description
+    exercise.cues = cues
+    exercise.body_group = body_group
+    exercise.compound = compound
 
     db.session.commit()
 
@@ -146,9 +147,12 @@ def delete_exercise(id):
 @app.route('/exercise', methods=['POST'])
 def add_exercise():
     body = request.get_json()
-    name = body["name"]
-    description = body["description"]
-    exercise = Exercise(name, description)
+    name = body['name']
+    cues = body['cues']
+    body_group = body['body_group']
+    compound = body['compound']
+
+    exercise = Exercise(name, cues, body_group, compound)
     db.session.add(exercise)
     db.session.commit()
     return exercise_schema.jsonify(exercise)

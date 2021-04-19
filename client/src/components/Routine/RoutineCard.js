@@ -7,8 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { compose } from "redux";
-import { deleteRoutine } from "../../actions";
-import { Link } from "react-router-dom";
+import { deleteRoutine } from "../../actions/routineActions";
 import history from "../../history";
 
 const useStyles = makeStyles({

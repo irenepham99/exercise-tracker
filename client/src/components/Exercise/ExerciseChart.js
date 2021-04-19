@@ -1,11 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { scaleLinear } from "d3-scale";
-import * as d3 from "d3";
-import { max } from "d3-array";
-import { select } from "d3-selection";
 import Chart from "./Chart";
-import { getExercise, getExerciseLog } from "../../actions";
+import { getExercise, getExerciseLog } from "../../actions/exerciseActions";
 
 class ExerciseChart extends React.Component {
   //for each data point parse time and print value

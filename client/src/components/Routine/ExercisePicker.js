@@ -8,7 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
-import { getExercises } from "../../actions";
+import { getExercises } from "../../actions/exerciseActions";
 
 class ExercisePicker extends React.Component {
   componentDidMount() {
@@ -19,7 +19,6 @@ class ExercisePicker extends React.Component {
     const {
       input: { value },
     } = this.props;
-    console.log("VALUE", value);
     const newValue = [...value];
     if (newValue.includes(val)) {
       const idx = newValue.indexOf(val);
@@ -27,7 +26,6 @@ class ExercisePicker extends React.Component {
     } else {
       newValue.push(val);
     }
-    console.log(newValue);
     return newValue;
   };
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getExercise, updateExercise } from "../../actions";
+import { getExercise, updateExercise } from "../../actions/exerciseActions";
 import ExerciseForm from "./ExerciseForm";
 import _ from "lodash";
 
-class EditExercise extends React.Component {
+class ExerciseEdit extends React.Component {
   componentDidMount() {
     this.props.getExercise(this.props.match.params.id);
   }
@@ -18,10 +18,16 @@ class EditExercise extends React.Component {
       return <div>Loading</div>;
     }
     return (
-      <div>
+      <div style={{ margin: "20px" }}>
         <h3>Edit Exercise {this.props.exercise.name}</h3>
         <ExerciseForm
-          initialValues={_.pick(this.props.exercise, "name", "description")}
+          initialValues={_.pick(
+            this.props.exercise,
+            "name",
+            "cues",
+            "compound",
+            "body_group"
+          )}
           onSubmit={this.onSubmit}
         />
       </div>
@@ -34,5 +40,5 @@ const mapStateToProps = (state, props) => {
 };
 
 export default connect(mapStateToProps, { getExercise, updateExercise })(
-  EditExercise
+  ExerciseEdit
 );
