@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Chart from "./Chart";
 import { getExercise, getExerciseLog } from "../../actions/exerciseActions";
+import Grid from "@material-ui/core/Grid";
 
 class ExerciseChart extends React.Component {
   //for each data point parse time and print value
@@ -15,7 +16,19 @@ class ExerciseChart extends React.Component {
     if (!this.props.exercise || !this.props.exercise.logs) {
       return <div>Loading</div>;
     } else {
-      return <Chart exercise={this.props.exercise} />;
+      return (
+        <Grid container spacing={4}>
+          <Grid item xs={4}>
+            <Chart exercise={this.props.exercise} property="sets" />
+          </Grid>
+          <Grid item xs={4}>
+            <Chart exercise={this.props.exercise} property="reps" />
+          </Grid>
+          <Grid item xs={4}>
+            <Chart exercise={this.props.exercise} property="weight" />
+          </Grid>
+        </Grid>
+      );
     }
   }
 }

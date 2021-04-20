@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getRoutine, updateRoutine } from "../../actions/routineActions";
 import _ from "lodash";
 import RoutineForm from "./RoutineForm";
+import { Typography } from "@material-ui/core";
 
 class RoutineEdit extends React.Component {
   componentDidMount() {
@@ -22,7 +23,14 @@ class RoutineEdit extends React.Component {
     );
     return (
       <div>
-        <h3>Edit Routine {this.props.routine.name}</h3>
+        <Typography
+          style={{ padding: "20px" }}
+          variant="h4"
+          align="center"
+          gutterBottom
+        >
+          Edit Routine {this.props.routine.name}
+        </Typography>
         <RoutineForm
           initialValues={{
             ..._.pick(this.props.routine, "name", "description"),

@@ -132,7 +132,6 @@ const validate = (formValues) => {
   if (!formValues.focus) {
     errors.focus = "You must give a focus";
   }
-
   return errors;
 };
 

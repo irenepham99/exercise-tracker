@@ -24,6 +24,7 @@ export const createRoutine = (formValues) => async (dispatch) => {
     dispatch(openNotification("Routine created successfully", "success"));
     history.push("/routine");
   } catch (error) {
+    console.log(error, "create routine");
     handleError(error, dispatch);
   }
 };

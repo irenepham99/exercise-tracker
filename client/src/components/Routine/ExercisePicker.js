@@ -9,6 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
 import { getExercises } from "../../actions/exerciseActions";
+import Typography from "@material-ui/core/Typography";
 
 class ExercisePicker extends React.Component {
   componentDidMount() {
@@ -29,43 +30,56 @@ class ExercisePicker extends React.Component {
     return newValue;
   };
 
+  //body part, compound vs isolation
   render() {
     const {
       exercises,
+      meta: { touched, error },
       input: { value, onChange },
     } = this.props;
     return (
-      <List>
-        {exercises.map(({ id, name }) => {
-          const labelId = `checkbox-list-label-${id}`;
-
-          return (
-            <ListItem
-              key={id}
-              role={undefined}
-              dense
-              button
-              onClick={() => onChange(this.handleToggle(id))}
-            >
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={value.includes(id)}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{ "aria-labelledby": labelId }}
-                />
-              </ListItemIcon>
-              <ListItemText id={labelId} primary={`${id}, ${name}`} />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="comments">
-                  <CommentIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-      </List>
+      <div>
+        <Typography align="center" variant="h5">
+          Choose Exercises in Routine
+        </Typography>
+        <List>
+          {exercises.map(({ id, name, compound, body_group }, index) => {
+            const labelId = `checkbox-list-label-${id}`;
+            return (
+              <ListItem
+                style={{
+                  backgroundColor: index % 2 == 0 ? "#E0E0E0" : "white",
+                }}
+                key={id}
+                role={undefined}
+                dense
+                button
+                onClick={() => onChange(this.handleToggle(id))}
+              >
+                <ListItemIcon>
+                  <Checkbox
+                    color="primary"
+                    edge="start"
+                    checked={value.includes(id)}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ "aria-labelledby": labelId }}
+                  />
+                </ListItemIcon>
+                <Typography variant="h6">{name}</Typography>
+                <Typography variant="body">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                  {`(${compound ? "Compound" : "Isolation"}, ${body_group})`}
+                </Typography>
+              </ListItem>
+            );
+          })}
+        </List>
+        <Typography align="center" style={{ color: "red" }} variant="body">
+          {error}
+        </Typography>
+      </div>
     );
   }
 }

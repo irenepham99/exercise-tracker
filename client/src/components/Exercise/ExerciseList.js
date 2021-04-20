@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getExercises, deleteExercise } from "../../actions/exerciseActions";
-import ExerciseCard from "./ExerciseCard";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,7 +17,7 @@ import TimelineIcon from "@material-ui/icons/Timeline";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const styles = {
   table: {
@@ -80,37 +79,44 @@ class ExerciseList extends React.Component {
                     {exercise.compound ? "Compound" : "Isolation"}
                   </TableCell>
                   <TableCell align="right">
-                    <IconButton
-                      onClick={() =>
-                        history.push(`/exercise/edit/${exercise.id}`)
-                      }
-                      size="medium"
-                    >
-                      <EditIcon fontSize="inherit" />
-                    </IconButton>
-                    <IconButton
-                      onClick={() =>
-                        history.push(`/exercise/${exercise.id}/chart`)
-                      }
-                      size="medium"
-                    >
-                      <TimelineIcon fontSize="inherit" />
-                    </IconButton>
-
-                    <IconButton
-                      onClick={() =>
-                        history.push(`/exercise/${exercise.id}/log`)
-                      }
-                      size="medium"
-                    >
-                      <FitnessCenterIcon fontSize="inherit" />
-                    </IconButton>
-                    <IconButton
-                      onClick={() => this.props.deleteExercise(exercise.id)}
-                      size="medium"
-                    >
-                      <DeleteIcon fontSize="inherit" />
-                    </IconButton>
+                    <Tooltip title="Edit">
+                      <IconButton
+                        onClick={() =>
+                          history.push(`/exercise/edit/${exercise.id}`)
+                        }
+                        size="medium"
+                      >
+                        <EditIcon fontSize="inherit" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="View progress">
+                      <IconButton
+                        onClick={() =>
+                          history.push(`/exercise/${exercise.id}/chart`)
+                        }
+                        size="medium"
+                      >
+                        <TimelineIcon fontSize="inherit" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Log progress">
+                      <IconButton
+                        onClick={() =>
+                          history.push(`/exercise/${exercise.id}/log`)
+                        }
+                        size="medium"
+                      >
+                        <FitnessCenterIcon fontSize="inherit" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <IconButton
+                        onClick={() => this.props.deleteExercise(exercise.id)}
+                        size="medium"
+                      >
+                        <DeleteIcon fontSize="inherit" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}

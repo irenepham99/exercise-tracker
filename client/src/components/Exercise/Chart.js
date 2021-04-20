@@ -1,5 +1,5 @@
 import React from "react";
-
+import Typography from "@material-ui/core/Typography";
 import * as d3 from "d3";
 
 class Chart extends React.Component {
@@ -15,17 +15,24 @@ class Chart extends React.Component {
     const formattedData = listLogs.map((log) => {
       return { ...log, date: d3.timeParse("%Y-%m-%dT00:00:00")(log.date) };
     });
+    //sort by date
+    formattedData.sort((a, b) => (a.date > b.date ? 1 : -1));
     return formattedData;
   };
 
   // 2 separate charts, one for weight another for sets and reps
   creatLineChart = () => {
-    const margin = { top: 10, right: 30, bottom: 30, left: 60 };
-    const width = 460 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const { property } = this.props;
+    const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+
+    const width = 300 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
     const data = this.reformatData(this.props.exercise.logs);
-    const weights = Array.from(this.props.exercise.logs, (log) => log.weight);
-    const yMax = Math.max(...weights);
+    const propertyValues = Array.from(
+      this.props.exercise.logs,
+      (log) => log[property]
+    );
+    const yMax = Math.max(...propertyValues);
     const svg = d3
       .select(this.node)
       .append("svg")
@@ -67,25 +74,7 @@ class Chart extends React.Component {
             return x(data.date);
           })
           .y(function (data) {
-            return y(data.reps);
-          })
-      );
-
-    svg
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "green")
-      .attr("stroke-width", 1.5)
-      .attr(
-        "d",
-        d3
-          .line()
-          .x(function (data) {
-            return x(data.date);
-          })
-          .y(function (data) {
-            return y(data.sets);
+            return y(data[property]);
           })
       );
 
@@ -95,36 +84,25 @@ class Chart extends React.Component {
       .data(data)
       .enter()
       .append("circle")
-      .attr("fill", "red")
+      .attr("fill", "black")
       .attr("stroke", "none")
       .attr("cx", function (d) {
         return x(d.date);
       })
       .attr("cy", function (d) {
-        return y(d.sets);
-      })
-      .attr("r", 3);
-    svg
-      .selectAll("myCircles")
-      .data(data)
-      .enter()
-      .append("circle")
-      .attr("fill", "red")
-      .attr("stroke", "none")
-      .attr("cx", function (d) {
-        return x(d.date);
-      })
-      .attr("cy", function (d) {
-        return y(d.reps);
+        return y(d[property]);
       })
       .attr("r", 3);
   };
 
   render() {
+    const { property } = this.props;
     return (
-      <div>
-        <h3>Sets and Reps Progression</h3>
-        <svg ref={(node) => (this.node = node)} width={500} height={500}></svg>
+      <div style={{ padding: "20px" }}>
+        <Typography variant="h5" align="center" gutterBottom>
+          {property.charAt(0).toUpperCase() + property.slice(1)} Progression
+        </Typography>
+        <svg ref={(node) => (this.node = node)} width={300} height={300}></svg>
       </div>
     );
   }

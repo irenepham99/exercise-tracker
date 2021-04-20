@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getRoutine, createRoutine } from "../../actions/routineActions";
 import _ from "lodash";
 import RoutineForm from "./RoutineForm";
+import { Typography } from "@material-ui/core";
 
 class RoutineCreate extends React.Component {
   componentDidMount() {
@@ -19,7 +20,9 @@ class RoutineCreate extends React.Component {
     }
     return (
       <div>
-        <h3>Create Routine {this.props.routine.name}</h3>
+        <Typography style={{ margin: "20px" }} align="center" variant="h4">
+          Create a New Routine{" "}
+        </Typography>
         <RoutineForm onSubmit={this.onSubmit} />
       </div>
     );
