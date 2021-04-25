@@ -2,7 +2,7 @@ export const CLOSE_NOTIFICATION = "CLOSE_NOTIFICATION";
 export const OPEN_NOTIFICATION = "OPEN_NOTIFICATION";
 
 export const handleError = (error, dispatch) => {
-  if (!error.response.status) {
+  if (error.response == undefined || !error.response.status) {
     dispatch(openNotification("Network Error", "error"));
   } else {
     dispatch(
